@@ -1,0 +1,22 @@
+<!-- <textarea rows="6" [value]="newPost" #postInput></textarea>
+<hr>
+<button (click)="onAddPost(postInput)">Save post</button>
+<p>{{newPost}}</p> -->
+
+<!-- Two way data binding -->
+<mat-card>
+  <form (submit)="onAddPost(postForm)" #postForm="ngForm">
+<mat-form-field>
+  <input matInput type="text" placeholder="post title" name="tittle" ngModel required minlength="2" #title="ngModel">
+  <mat-error *ngIf="title.errors?.required && title.touched">Tittle Required</mat-error>
+  <mat-error *ngIf="title.errors?.minlength && title.touched">Minimum length of 2 required</mat-error>
+</mat-form-field>
+<mat-form-field class="example-full-width">
+<textarea rows="6"  placeholder="post content" matInput name="content" ngModel required></textarea>
+</mat-form-field>
+
+<button mat-raised-button color="accent" type="Submit">Save post</button>
+</form>
+</mat-card>
+
+
