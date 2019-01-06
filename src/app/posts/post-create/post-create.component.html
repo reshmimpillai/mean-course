@@ -4,18 +4,48 @@
 <p>{{newPost}}</p> -->
 
 <!-- Two way data binding -->
-<mat-card>
+<!-- <mat-card>
   <form (submit)="onAddPost(postForm)" #postForm="ngForm">
 <mat-form-field>
   <input matInput type="text" placeholder="post title" name="tittle" ngModel required minlength="2" #title="ngModel">
   <mat-error *ngIf="title.errors?.required && title.touched">Tittle Required</mat-error>
   <mat-error *ngIf="title.errors?.minlength && title.touched">Minimum length of 2 required</mat-error>
 </mat-form-field>
+<div>
+  <button mat-stroked-button type="button" (click)="filePicked.click()">Pick Image</button>
+  <input type="file" #filePicked (change)="onImagePicked($event)">
+</div>
+<div class="imagePreview" *ngIf="imagePreview!==null || imagePreview!==' '">
+  <img [src]="imagePreview" [alt]="title.value">
+</div>
 <mat-form-field class="example-full-width">
 <textarea rows="6"  placeholder="post content" matInput name="content" ngModel required></textarea>
 </mat-form-field>
 
-<button mat-raised-button color="accent" type="Submit">Save post</button>
+<button mat-raised-button color="accent" type="Submit" >Save post</button>
+</form>
+</mat-card> -->
+
+<!-- Reactive approach ************************************************** -->
+<mat-card>
+  <form (submit)="onAddPost()" [formGroup]="form" >
+<mat-form-field>
+  <input matInput type="text" placeholder="post title" name="tittle" formControlName="title">
+  <mat-error *ngIf="form.get('title').errors?.required && form.get('title').touched">Tittle Required</mat-error>
+  <mat-error *ngIf="form.get('title').errors?.minlength && form.get('title').touched">Minimum length of 2 required</mat-error>
+</mat-form-field>
+<div>
+  <button mat-stroked-button type="button" (click)="filePicked.click()">Pick Image</button>
+  <input type="file" #filePicked (change)="onImagePicked($event)">
+</div>
+<div class="imagePreview" *ngIf="imagePreview!==null || imagePreview!==' '">
+  <img [src]="imagePreview" >
+</div>
+<mat-form-field class="example-full-width">
+<textarea rows="6"  placeholder="post content" matInput name="content" formControlName="content"></textarea>
+</mat-form-field>
+
+<button mat-raised-button color="accent" type="Submit" >Save post</button>
 </form>
 </mat-card>
 

@@ -2,6 +2,7 @@ import { Component, OnInit, Input, OnDestroy} from '@angular/core';
 import { Post } from '../post.model';
 import { PostsService } from '../posts.service';
 import {Subscription} from 'Rxjs';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-post-list',
@@ -30,6 +31,11 @@ export class PostListComponent implements OnInit , OnDestroy {
     // .subscribe((posts: Post[]) => {
     //   this.posts = posts;
     // });
+  }
+
+
+  onDelete(id: string) {
+    this.postService.deletePost(id);
   }
 
   ngOnDestroy() {
